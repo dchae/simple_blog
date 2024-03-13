@@ -1,0 +1,15 @@
+<ul>
+  <% @posts.each do |post| %>
+    <div>
+      <h3>
+        <%= post.title %>
+      </h3>
+      <h5>
+        <%= post.timestamp %>
+      </h5>
+      <br>
+      <%= post.content %>
+    </div>
+  </li>
+<% end %>
+</ul>

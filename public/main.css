@@ -1,0 +1,64 @@
+/* General body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+  margin: 0;
+}
+
+/* Main container */
+div {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+/* User and tracks styling */
+p, h3, ul {
+  margin: 10px 0;
+}
+
+a {
+  color: #1db954;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Top tracks and playlists */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+li img {
+  flex-shrink: 0; /* Prevent image resizing */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+  div {
+    padding: 10px;
+  }
+}
