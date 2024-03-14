@@ -1,6 +1,8 @@
 require 'pg'
 require 'bcrypt'
 
+require_relative 'blogtools'
+
 class DatabaseHandler
   def initialize(logger)
     @db =
@@ -10,11 +12,21 @@ class DatabaseHandler
         PG.connect(dbname: 'simple_blog')
       end
     @logger = logger
+    # setup_schema # Implement auto setup of sql tables and database when it doesn't already exist
   end
 
   def query(sql, *params)
     @logger.info("#{sql}: #{params}")
     @db.exec_params(sql, params)
+  end
+
+  def fetch_posts()
+    sql = <<~SQL
+    SELECT title, user_id, username, post_date, content FROM posts 
+    INNER JOIN users ON posts.user_id = users.id
+    ORDER BY post_date DESC;
+    SQL
+    result = @db.query(sql)
   end
 
   def add_user(username, secret)

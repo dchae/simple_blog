@@ -4,6 +4,9 @@
       <h3>
         <%= post.title %>
       </h3>
+      <h4>
+        <%= post.author%>
+      </h4>
       <h5>
         <%= post.timestamp %>
       </h5>
@@ -13,3 +16,19 @@
   </li>
 <% end %>
 </ul>
+
+<% if signed_in? %>
+  <form class="inline" action="/users/signout" method="post" >
+    <p class="user-status">
+      Signed in as <%= session[:username] %>.
+      <button type="submit">Sign Out</button>
+    </p>
+  </form>
+<% else %>
+  <form class="inline" action="/users/signin" method="get" >
+    <button type="submit">Sign In</button>
+  </form>
+  <form class="inline" action="/users/signup" method="get" >
+    <button type="submit">Sign Up</button>
+  </form>
+<% end %>
