@@ -29,6 +29,11 @@ class DatabaseHandler
     result = @db.query(sql)
   end
 
+  def add_post(title, user_id, content)
+    sql = 'INSERT INTO posts (title, user_id, content) VALUES ($1, $2, $3)'
+    query(sql, title, user_id, content)
+  end
+
   def add_user(username, secret)
     unless existing_user?(username)
       pw_hash = BCrypt::Password.create(secret).to_s
@@ -49,5 +54,11 @@ class DatabaseHandler
     return false unless result.ntuples == 1
     pw_hash = result.first['pw_hash']
     BCrypt::Password.new(pw_hash) == password
+  end
+
+  def get_user_id(username)
+    sql = 'SELECT id FROM users WHERE username = $1'
+    result = query(sql, username)
+    result.first["id"]
   end
 end

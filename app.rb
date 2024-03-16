@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'tilt/erubis'
+require 'redcarpet'
 
 require_relative 'blogtools'
 require_relative 'db_handler'
@@ -22,16 +23,28 @@ before do
 end
 
 helpers do
-  # def render_md(md_text)
-  #   Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(md_text)
-  # end
+  def render_md(md_text)
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(md_text)
+  end
+
+  def add_message(msg)
+    session[:messages] << msg
+  end
+
   def signed_in?
-    session[:username] && !session[:username].empty?
+    session[:user_id] && !session[:user_id].empty? && session[:username] &&
+      !session[:username].empty?
+  end
+
+  def sign_in(username)
+    session[:username] = username
+    session[:user_id] = @db.get_user_id(username)
   end
 end
 
 # TODO: implement page system
 # TODO: Implement author name separately from username
+# TODO: make sure our markdown render implementation is safe from XSS attacks.
 
 get '/' do
   @page_title = 'Simple Blog'
@@ -48,14 +61,55 @@ end
 post '/users/signup' do
   username, password = params[:username], params[:password]
   if @db.existing_user?(username)
-    session[:messages] <<
-      'This user already exists. Please try a different username or sign in.'
+    add_message(
+      'This user already exists. Please try a different username or sign in.',
+    )
     status 422
     erb :signup
   else
     @db.add_user(username, password)
-    session[:username] = username
-    session[:messages] << 'Thank you for signing up!'
+    sign_in(username)
+    'Thank you for signing up!'
     redirect '/'
+  end
+end
+
+get '/users/signin' do
+  erb :signin
+end
+
+post '/users/signin' do
+  username, password = params[:username], params[:password]
+  if @db.valid_user?(username, password)
+    sign_in(username)
+    add_message('Welcome!')
+    redirect '/'
+  else
+    add_message('Invalid credentials.')
+    status 422
+    erb :signin
+  end
+end
+
+get '/posts/new' do
+  erb :newpost
+end
+
+def valid_post(title, user_id, content)
+  title.size > 0 && content.size > 0 && user_id =~ /[0-9]/
+end
+
+post '/posts/new' do
+  title, content = params[:title], params[:content]
+  user_id = session[:user_id]
+
+  if valid_post(title, user_id, content)
+    @db.add_post(title, user_id, content)
+    add_message('The post has been submitted.')
+    redirect '/'
+  else
+    add_message('Invalid post')
+    status 422
+    erb :newpost
   end
 end

@@ -8,6 +8,18 @@ body {
   margin: 0;
 }
 
+header, main {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header {
+  margin-bottom: 20px;
+}
 /* Main container */
 div {
   background-color: #ffffff;
@@ -51,6 +63,103 @@ li {
 
 li img {
   flex-shrink: 0; /* Prevent image resizing */
+}
+
+button {
+  background-color: #2e70a5; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.delete {
+  background-color: #cc0000;
+}
+
+.delete:hover {
+  background-color: #a00000;
+}
+
+.form-inline {
+  display: inline;
+}
+
+.inline {
+  display: inline;
+}
+
+/* Adjust button styles for forms placed inline */
+.inline button {
+  padding: 5px 10px;
+  font-size: 14px;
+  margin: 0 5px;
+}
+
+p {
+  margin: 20px 0;
+}
+
+/* Style form elements for consistency */
+form {
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box; /* Makes sure padding doesn't increase the width */
+}
+
+input[type="text"] {
+  height: 40px; /* Fixed height for text inputs */
+}
+
+textarea {
+  resize: vertical; /* Allows vertical resizing, none for horizontal */
+}
+
+/* Enhance the visual hierarchy and focus */
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #1a0dab;
+  outline: none;
+}
+
+/* Style the 'Load Version' button to match 'Save Changes' */
+form[action$="edit"] button.version {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form[action$="edit"] button.version:hover {
+  background-color: #45a049;
 }
 
 /* Responsive adjustments */

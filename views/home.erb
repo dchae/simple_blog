@@ -5,18 +5,17 @@
         <%= post.title %>
       </h3>
       <h4>
-        <%= post.author%>
+        <%= post.username%>
       </h4>
       <h5>
         <%= post.timestamp %>
       </h5>
       <br>
-      <%= post.content %>
+      <%== render_md(post.content) %>
     </div>
   </li>
 <% end %>
 </ul>
-
 <% if signed_in? %>
   <form class="inline" action="/users/signout" method="post" >
     <p class="user-status">
@@ -24,6 +23,7 @@
       <button type="submit">Sign Out</button>
     </p>
   </form>
+  <p><a href="/posts/new">New Post</a></p>
 <% else %>
   <form class="inline" action="/users/signin" method="get" >
     <button type="submit">Sign In</button>

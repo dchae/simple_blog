@@ -1,22 +1,22 @@
 class Post
-  def initialize(title, user_id, author, timestamp, content)
+  def initialize(title, user_id, username, timestamp, content)
     @title = title
     @user_id = user_id
-    @author = author
+    @username = username
     @timestamp = timestamp
     @content = content
   end
 
-  attr_reader :title, :user_id, :author, :timestamp, :content
+  attr_reader :title, :user_id, :username, :timestamp, :content
 
   def self.list_from_PG(result)
     result.map do |tuple|
       title = tuple['title']
       user_id = tuple['user_id']
-      author = tuple['username']
+      username = tuple['username']
       timestamp = tuple['post_date']
       content = tuple['content']
-      Post.new(title, user_id, author, timestamp, content)
+      Post.new(title, user_id, username, timestamp, content)
     end
   end
 end

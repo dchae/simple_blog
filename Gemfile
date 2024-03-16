@@ -9,7 +9,7 @@ gem "erubis"
 
 gem "pg"
 gem "bcrypt"
-# gem "redcarpet"
+gem "redcarpet"
 
 group :production do
   gem "puma"
