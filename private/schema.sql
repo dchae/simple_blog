@@ -10,5 +10,6 @@ CREATE TABLE posts (
   title text NOT NULL,
   user_id int NOT NULL REFERENCES users(id),
   post_date timestamp DEFAULT NOW(),
+  last_updated_date timestamp DEFAULT NOW(),
   content text NOT NULL
 )
