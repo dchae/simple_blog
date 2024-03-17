@@ -40,6 +40,15 @@ helpers do
     session[:username] = username
     session[:user_id] = @db.get_user_id(username)
   end
+
+  def sign_out
+    session[:username] = nil
+    session[:user_id] = nil
+  end
+
+  def valid_post(title, user_id, content)
+    title.size > 0 && content.size > 0 && user_id =~ /[0-9]/
+  end
 end
 
 # TODO: implement page system
@@ -49,6 +58,7 @@ end
 get '/' do
   @page_title = 'Simple Blog'
   result = @db.fetch_posts
+  p result.values
   @posts = Post.list_from_PG(result)
 
   erb :home, layout: :layout
@@ -91,12 +101,14 @@ post '/users/signin' do
   end
 end
 
-get '/posts/new' do
-  erb :newpost
+post '/users/signout' do
+  sign_out
+  add_message('You have been signed out!')
+  redirect '/'
 end
 
-def valid_post(title, user_id, content)
-  title.size > 0 && content.size > 0 && user_id =~ /[0-9]/
+get '/posts/new' do
+  erb :newpost
 end
 
 post '/posts/new' do
@@ -112,4 +124,10 @@ post '/posts/new' do
     status 422
     erb :newpost
   end
+end
+
+get '/posts/:post_id' do |post_id|
+  result = @db.fetch_post(post_id)
+  @post = Post.from_PG(result)
+  erb :post
 end

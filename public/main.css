@@ -1,6 +1,6 @@
 /* General body styling */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: #f0f0f0;
   color: #333;
   line-height: 1.6;
@@ -8,18 +8,43 @@ body {
   margin: 0;
 }
 
-header, main {
+header,
+main {
   max-width: 800px;
   margin: 0 auto;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header {
   margin-bottom: 20px;
 }
+
+.flash {
+  max-width: 960px;
+  padding: 10px 20px;
+  margin: 20px auto 1.5em auto;
+  color: #3399cc;
+  background: #cbe5f2;
+}
+
+.flash p {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.flash.error {
+  color: #ff6633;
+  background: #ffcfbf;
+}
+
+.flash.success {
+  color: #33cc99;
+  background: #cbf2e5;
+}
+
 /* Main container */
 div {
   background-color: #ffffff;
@@ -30,7 +55,7 @@ div {
 }
 
 /* User and tracks styling */
-p, h3, ul {
+p {
   margin: 10px 0;
 }
 
@@ -66,7 +91,7 @@ li img {
 }
 
 button {
-  background-color: #2e70a5; /* Green */
+  background-color: #2e70a5; 
   border: none;
   color: white;
   padding: 10px 20px;
@@ -106,9 +131,6 @@ button:hover {
   margin: 0 5px;
 }
 
-p {
-  margin: 20px 0;
-}
 
 /* Style form elements for consistency */
 form {
@@ -149,7 +171,7 @@ select:focus {
 
 /* Style the 'Load Version' button to match 'Save Changes' */
 form[action$="edit"] button.version {
-  background-color: #4CAF50; /* Green */
+  background-color: #4caf50; /* Green */
   color: white;
   padding: 10px 20px;
   font-size: 16px;

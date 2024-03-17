@@ -22,11 +22,20 @@ class DatabaseHandler
 
   def fetch_posts()
     sql = <<~SQL
-    SELECT title, user_id, username, post_date, content FROM posts 
+    SELECT posts.id, title, user_id, username, post_date, content FROM posts 
     INNER JOIN users ON posts.user_id = users.id
     ORDER BY post_date DESC;
     SQL
-    result = @db.query(sql)
+    result = query(sql)
+  end
+
+  def fetch_post(post_id)
+    sql = <<~SQL
+    SELECT posts.id, title, user_id, username, post_date, content FROM posts 
+    INNER JOIN users ON posts.user_id = users.id
+    WHERE posts.id = $1;
+    SQL
+    result = query(sql, post_id)
   end
 
   def add_post(title, user_id, content)
