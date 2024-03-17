@@ -1,3 +1,17 @@
 <div>
+  <h3>
+    <a href="posts/<%= @post.id %>"><%= @post.title %></a>
+  </h3>
+  <h4>
+    <%= @post.username%>
+  </h4>
+  <h5>
+    Created on: <%= @post.timestamp %>
+    Last updated on: <%= @post.updated_on %>
+  </h5>
+  <br>
   <%== render_md(@post.content) %>
 </div>
+<form action="/posts/<%= @post.id %>/edit" method="get">
+  <button type="submit">Edit</button>
+</form>

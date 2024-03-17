@@ -131,3 +131,23 @@ get '/posts/:post_id' do |post_id|
   @post = Post.from_PG(result)
   erb :post
 end
+
+
+get '/posts/:post_id/edit' do |post_id|
+  result = @db.fetch_post(post_id)
+  @post = Post.from_PG(result)
+  erb :edit
+end
+
+post '/posts/:post_id' do |post_id|
+  new_title, new_content = params[:new_title], params[:new_content]
+  user_id = session[:user_id]
+  # Need to verify that current user is original author of post
+  # current solution is not secure/robust
+  # if @db.has_edit_permissions?(user_id, post_id)
+
+  @db.update_post(post_id, new_title, new_content) 
+  result = @db.fetch_post(post_id) # This db query can be optimised/eliminated
+  @post = Post.from_PG(result)
+  erb :post
+end

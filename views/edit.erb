@@ -1,0 +1,28 @@
+<div>
+  <h3>
+    <a href="posts/<%= @post.id %>"><%= @post.title %></a>
+  </h3>
+  <h4>
+    <%= @post.username%>
+  </h4>
+  <h5>
+    Created on: <%= @post.timestamp %>
+    Last updated on: <%= @post.updated_on %>
+  </h5>
+  <br>
+  <%== render_md(@post.content) %>
+</div>
+<form action="/posts/<%= @post.id %>" method="get">
+  <button type="submit">Close editor</button>
+</form>
+<div>
+  <form action="/posts/<%= @post.id %>" method="post">
+    <label for="new_content">Edit content of:
+      <input type="text" id="new_title" name="new_title" value="<%= (params[:new_title] || @post.title) %>" >
+    </label>
+    <div>
+      <textarea id="new_content" name="new_content" rows="20" cols="75"><%= params[:new_content] || @post.content  %></textarea>
+    </div>
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
