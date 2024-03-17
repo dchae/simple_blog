@@ -31,9 +31,10 @@ class DatabaseHandler
 
   def fetch_post(post_id)
     sql = <<~SQL
-    SELECT posts.id, title, user_id, username, post_date, content FROM posts 
-    INNER JOIN users ON posts.user_id = users.id
-    WHERE posts.id = $1;
+      SELECT posts.*, username
+      FROM posts 
+      INNER JOIN users ON posts.user_id = users.id
+      WHERE posts.id = $1;
     SQL
     result = query(sql, post_id)
   end
@@ -41,6 +42,17 @@ class DatabaseHandler
   def add_post(title, user_id, content)
     sql = 'INSERT INTO posts (title, user_id, content) VALUES ($1, $2, $3)'
     query(sql, title, user_id, content)
+  end
+
+  def update_post(post_id, new_title, new_content)
+    sql = <<~SQL
+      UPDATE posts 
+      SET title = $1,
+          content = $2,
+          last_updated_date = NOW()
+      WHERE id = $3;
+      SQL
+    query(sql, new_title, new_content, post_id)
   end
 
   def add_user(username, secret)
