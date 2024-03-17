@@ -91,7 +91,7 @@ li img {
 }
 
 button {
-  background-color: #2e70a5; 
+  background-color: #2e70a5;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -131,7 +131,6 @@ button:hover {
   margin: 0 5px;
 }
 
-
 /* Style form elements for consistency */
 form {
   margin: 20px 0;
@@ -144,7 +143,9 @@ label {
 
 input[type="text"],
 textarea,
-select {
+select,
+input[type="username"],
+input[type="password"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -155,6 +156,12 @@ select {
 
 input[type="text"] {
   height: 40px; /* Fixed height for text inputs */
+}
+
+input[type="username"],
+input[type="password"] {
+  height: 40px; /* Fixed height for text inputs */
+  width: 50%;
 }
 
 textarea {
