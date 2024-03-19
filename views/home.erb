@@ -1,21 +1,19 @@
-<ul>
   <% @posts.each do |post| %>
+  <div>
+    <h3>
+      <a href="posts/<%= post.id %>"><%= post.title %></a>
+    </h3>
+    <h4>
+      <%= post.username%>
+    </h4>
+    <h5>
+      <%= post.timestamp %>
+    </h5>
     <div>
-      <h3>
-        <a href="posts/<%= post.id %>"><%= post.title %></a>
-      </h3>
-      <h4>
-        <%= post.username%>
-      </h4>
-      <h5>
-        <%= post.timestamp %>
-      </h5>
-      <br>
       <%== render_md(post.content) %>
     </div>
-  </li>
+  </div>
 <% end %>
-</ul>
 <% if signed_in? %>
   <form class="inline" action="/users/signout" method="post" >
     <p class="user-status">
