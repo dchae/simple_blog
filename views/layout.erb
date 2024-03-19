@@ -11,10 +11,12 @@
     <header>
       <a href="/">Home</a>
     </header>
-    <% session[:messages].each do |message| %>
-      <p class="flash"><%= message %></p>
-    <% end %>
-    <% session[:messages].clear %>
+    <ul>
+      <% session[:messages].each do |message| %>
+        <li class="flash"><%= message %></li>
+      <% end %>
+    </ul>
+    <%# <% session[:messages].clear %>  
     <main>
       <%== yield %>
     </main>
