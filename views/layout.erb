@@ -9,14 +9,16 @@
   </head>
   <body>
     <header>
-      <a href="/">Home</a>
+      <nav>
+        <a href="/">Home</a>
+      </nav>
     </header>
     <ul>
       <% session[:messages].each do |message| %>
         <li class="flash"><%= message %></li>
       <% end %>
     </ul>
-    <%# <% session[:messages].clear %>  
+    <%# <% session[:messages].clear %>
     <main>
       <%== yield %>
     </main>

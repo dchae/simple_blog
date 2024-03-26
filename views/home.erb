@@ -1,5 +1,5 @@
   <% @posts.each do |post| %>
-  <div>
+  <section>
     <h3>
       <a href="posts/<%= post.id %>"><%= post.title %></a>
     </h3>
@@ -9,10 +9,10 @@
     <h5>
       <%= post.timestamp %>
     </h5>
-    <div>
+    <article>
       <%== render_md(post.content) %>
-    </div>
-  </div>
+    </article>
+  </section>
 <% end %>
 <% if signed_in? %>
   <form class="inline" action="/users/signout" method="post" >
