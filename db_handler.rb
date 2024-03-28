@@ -29,6 +29,17 @@ class DatabaseHandler
     result = query(sql)
   end
 
+  def fetch_n_posts(lim, page)
+    sql = <<~SQL
+    SELECT posts.id, title, user_id, username, post_date, content FROM posts 
+    INNER JOIN users ON posts.user_id = users.id
+    ORDER BY post_date DESC
+    LIMIT $1 OFFSET $2;
+    SQL
+    offset = page.to_i * lim.to_i
+    result = query(sql, lim.to_i + 1, offset)
+  end
+
   def fetch_post(post_id)
     sql = <<~SQL
       SELECT posts.*, username

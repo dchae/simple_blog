@@ -1,7 +1,8 @@
-  <% @posts.each do |post| %>
+  <% @posts.each_with_index do |post, i| %>
+  <% break if i == @posts_per_page %>
   <section>
     <h3>
-      <a href="posts/<%= post.id %>"><%= post.title %></a>
+      <a href="/posts/<%= post.id %>"><%= post.title %></a>
     </h3>
     <h4>
       <%= post.username%>
@@ -13,6 +14,13 @@
       <%== render_md(post.content) %>
     </article>
   </section>
+<% end %>
+
+<% unless @page == 0 %>
+<a href="/page/<%=@page-1%>">Previous Page</a>
+<% end %>
+<% unless @last_page_bool %>
+<a href="/page/<%=@page+1%>">Next Page</a>
 <% end %>
 <% if signed_in? %>
   <form class="inline" action="/users/signout" method="post" >

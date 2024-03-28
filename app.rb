@@ -56,12 +56,18 @@ end
 # TODO: make sure our markdown render implementation is safe from XSS attacks.
 
 get '/' do
-  @page_title = 'Simple Blog'
-  result = @db.fetch_posts
-  p result.values
-  @posts = Post.list_from_PG(result)
+  redirect "/page/0"
+end
 
-  erb :home, layout: :layout
+get "/page/:page" do |page|
+  @page_title = 'Simple Blog'
+  @page = page.to_i
+  @posts_per_page = 3
+  result = @db.fetch_n_posts(@posts_per_page, @page)
+  @posts = Post.list_from_PG(result)
+  @last_page_bool = result.ntuples <= @posts_per_page
+
+  erb :feed, layout: :layout
 end
 
 get '/users/signup' do
